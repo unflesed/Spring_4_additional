@@ -1,25 +1,33 @@
 package additional.aspects;
 
-import org.aspectj.lang.JoinPoint;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
-import java.time.LocalDateTime;
+import java.io.BufferedWriter;
 
-import static java.lang.System.out;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class Logger {
     private ApplicationContext applicationContext;
 
-    public void afterThrowing(Exception ex, JoinPoint joinPoint) {
-
-        out.println("***********************************");
-        out.println("*********** Log : error ***********");
-        out.println("Exception : " + ex.getMessage());
-        out.println("Class : " + ex.getClass());
-        out.println("Method : " + joinPoint.getSignature().getName());
-        out.println("Date/Time : " + LocalDateTime.now());
-        out.println("***********************************");
+    public void afterThrowing(Exception ex) {
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter("C:\\Users\\user\\IdeaProjects\\Spring_4_Additional\\src\\main\\java\\additional\\aspects\\log.txt"));
+            String log = "***********************************\r\n" +
+                         "*********** Log : error ***********\r\n" +
+                         "Exception : " + ex.getMessage() + "\r\n" +
+                         "Class : " + ex.getClass() + "\r\n" +
+                         "Method : " + ex.getStackTrace()[0] + "\r\n" +
+                         "Date/Time : " + LocalDateTime.now() + "\r\n" +
+                         "***********************************" + "\r\n";
+            bw.write(log);
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

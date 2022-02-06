@@ -1,5 +1,6 @@
 package additional.controllers;
 
+import additional.exceptions.MyException;
 import additional.persistence.dao.services.interfaces.CustomerSimpleService;
 import additional.persistence.model.Customer;
 import org.apache.commons.logging.Log;
@@ -18,6 +19,7 @@ public class CustomerController {
     @Autowired
     private CustomerSimpleService customerSimpleService;
 
+
     @PostMapping(value = "/add")
     public String addNewCustomer(HttpServletRequest request) {
         Customer customer = new Customer();
@@ -35,6 +37,10 @@ public class CustomerController {
         modelAndView.addObject("customers", customerSimpleService.findAll());
         modelAndView.setViewName("/customers");
         return modelAndView;
+    }
+    @GetMapping(value = "/get")
+    public String getException() throws MyException {
+        throw new MyException("Wrong way!");
     }
 
     @GetMapping(value = "/remove/{id}")

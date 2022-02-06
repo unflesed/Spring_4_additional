@@ -27,7 +27,7 @@
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
 
-    <!--Spring_6_Additional
+    <!--Spring_6_Additional-->
     <bean id="logger" class="additional.aspects.Logger"/>
 
     <aop:config>
@@ -36,5 +36,5 @@
                                 pointcut="within(@org.springframework.web.bind.annotation.RequestMapping *)"/>
         </aop:aspect>
     </aop:config>
-    -->
+
 </beans>
