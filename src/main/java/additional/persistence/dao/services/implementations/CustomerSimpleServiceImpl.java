@@ -5,6 +5,7 @@ import additional.persistence.dao.services.interfaces.CustomerSimpleService;
 import additional.persistence.model.Customer;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public class CustomerSimpleServiceImpl implements CustomerSimpleService {
         return customerRepository.save(customer);
     }
 
+    @PreAuthorize(value = "hasAuthority('ROLE_ADMIN')")
     @Override
     public void removeById(long id) {
         customerRepository.deleteById(id);
